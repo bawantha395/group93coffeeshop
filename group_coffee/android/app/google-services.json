@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "643171318782",
+    "project_id": "groupcoffee-ed8f8",
+    "storage_bucket": "groupcoffee-ed8f8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643171318782:android:f448c66e36d5d912401eaf",
+        "android_client_info": {
+          "package_name": "com.example.group_coffee"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5VWrwjOWMacdn69J5EBbSGJt307tZa5M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
