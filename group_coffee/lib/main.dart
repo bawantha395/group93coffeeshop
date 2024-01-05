@@ -3,7 +3,17 @@ import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: "AIzaSyD5VWrwjOWMacdn69J5EBbSGJt307tZa5M", // Replace with actual values
+      authDomain: "groupcoffee-ed8f8.firebaseapp.com",
+      projectId: "groupcoffee-ed8f8",
+      storageBucket: "groupcoffee-ed8f8.appspot.com",
+      messagingSenderId: "643171318782",
+      appId: "1:643171318782:android:f448c66e36d5d912401eaf",
+      // measurementId: "your-measurement-id",
+    ),
+  );
   runApp(const MyApp());
 }
 
