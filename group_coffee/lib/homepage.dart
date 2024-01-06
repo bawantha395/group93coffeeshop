@@ -19,14 +19,14 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Homepage"),
+        title: const Text("Homepage"),
       ),
       body: Center(
         child: Text('${user!.email}'),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (()=>signout()),
-        child: Icon(Icons.login_rounded),
+        child: const Icon(Icons.login_rounded),
       ),
     );
   }

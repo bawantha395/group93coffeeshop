@@ -17,26 +17,27 @@ class _SignupState extends State<Signup> {
   signup() async {
     await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email.text, password: password.text);
-    Get.offAll(Wrapper());
+    Get.offAll(const Wrapper());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Sign Up"),
+        title: const Text("Sign Up"),
       ),
       body: Column(
         children: [
           TextField(
             controller: email,
-            decoration: InputDecoration(hintText: 'Enter email'),
+            decoration: const InputDecoration(hintText: 'Enter email'),
           ),
           TextField(
             controller: password,
-            decoration: InputDecoration(hintText: 'Enter password'),
+            decoration: const InputDecoration(hintText: 'Enter password'),
+            obscureText: true,
           ),
-          ElevatedButton(onPressed: (() => signup()), child: Text("Sign up"))
+          ElevatedButton(onPressed: (() => signup()), child: const Text("Sign up"))
         ],
       ),
     );

@@ -15,33 +15,56 @@ class _LoginState extends State<Login> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
+  bool isloading = false;
+
   signin() async {
-    await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email.text, password: password.text);
+    setState(() {
+      isloading = true;
+    });
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email.text, password: password.text);
+    } on FirebaseAuthException catch (e) {
+      Get.snackbar("error ", e.code);
+    } catch (e) {
+      Get.snackbar("error ", e.toString());
+    }
+    setState(() {
+      isloading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return isloading?Center(child: CircularProgressIndicator(),): Scaffold(
       appBar: AppBar(
-        title: Text("Login"),
+        title: const Text("Login"),
       ),
       body: Column(
         children: [
           TextField(
             controller: email,
-            decoration: InputDecoration(hintText: 'Enter email'),
+            decoration: const InputDecoration(hintText: 'Enter email'),
           ),
           TextField(
             controller: password,
-            decoration: InputDecoration(hintText: 'Enter password'),
+            decoration: const InputDecoration(hintText: 'Enter password'),
+            obscureText: true,
           ),
-          ElevatedButton(onPressed: (()=>signin()), child: Text("Login")),
-          SizedBox(height: 30,),
-          ElevatedButton(onPressed: (()=>Get.to(Signup())), child: Text("Register now")),
-          SizedBox(height: 30,),
-          ElevatedButton(onPressed: (()=>Get.to(Forgot())), child: Text("Forgot password ?"))
-          
+          ElevatedButton(
+              onPressed: (() => signin()), child: const Text("Login")),
+          const SizedBox(
+            height: 30,
+          ),
+          ElevatedButton(
+              onPressed: (() => Get.to(const Signup())),
+              child: const Text("Register now")),
+          const SizedBox(
+            height: 30,
+          ),
+          ElevatedButton(
+              onPressed: (() => Get.to(const Forgot())),
+              child: const Text("Forgot password ?"))
         ],
       ),
     );

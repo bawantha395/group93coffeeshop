@@ -22,16 +22,16 @@ class _ForgotState extends State<Forgot> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Forgot Password"),
+        title: const Text("Forgot Password"),
       ),
       body: Column(
         children: [
           TextField(
             controller: email,
-            decoration: InputDecoration(hintText: 'Enter email'),
+            decoration: const InputDecoration(hintText: 'Enter email'),
           ),
           
-          ElevatedButton(onPressed: (() => reset()), child: Text("Send link"))
+          ElevatedButton(onPressed: (() => reset()), child: const Text("Send link"))
         ],
       ),
     );
