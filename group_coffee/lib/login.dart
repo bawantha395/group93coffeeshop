@@ -25,9 +25,9 @@ class _LoginState extends State<Login> {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email.text, password: password.text);
     } on FirebaseAuthException catch (e) {
-      Get.snackbar("error ", e.code);
+      Get.snackbar("Error ", e.code);
     } catch (e) {
-      Get.snackbar("error ", e.toString());
+      Get.snackbar("Error ", e.toString());
     }
     setState(() {
       isloading = false;
