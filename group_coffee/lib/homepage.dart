@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:group_coffee/login.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -13,6 +14,11 @@ class _HomepageState extends State<Homepage> {
 
   signout() async {
     await FirebaseAuth.instance.signOut();
+     Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => Login()),
+    );
+    // Get.offAll(const Login());
   }
 
   @override

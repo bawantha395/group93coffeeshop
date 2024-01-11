@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -7,12 +6,14 @@ import 'package:group_coffee/login.dart';
 // import 'package:group_coffee/signup.dart';
 
 class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Material(
       child: Container(
-        padding: EdgeInsets.only(top: 100, bottom: 40),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.only(top: 100, bottom: 40),
+        decoration: const BoxDecoration(
           color: Colors.black,
           image: DecorationImage(
             image: AssetImage("images/bg.png"),
@@ -41,9 +42,9 @@ class WelcomeScreen extends StatelessWidget {
                     letterSpacing: 1,
                   ),
                 ),
-                SizedBox(height: 80),
+                const SizedBox(height: 80),
                 Material(
-                  color: Color(0xFFE57734),
+                  color: const Color(0xFFE57734),
                   borderRadius: BorderRadius.circular(10),
                   child: InkWell(
                     onTap: () {
@@ -55,8 +56,8 @@ class WelcomeScreen extends StatelessWidget {
                       );
                     },
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 50),
-                      child: Text(
+                      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 50),
+                      child: const Text(
                         "Get Start",
                         style: TextStyle(
                           color: Colors.white,
