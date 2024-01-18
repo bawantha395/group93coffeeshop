@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:group_coffee/widgets/home_bottom_bar.dart';
-import 'package:provider/provider.dart';
- // Replace 'path_to_cart_model_file' with the actual path to your CartModel file
-import 'package:group_coffee/homepage.dart';
-
 import 'package:group_coffee/models/cart_model.dart';
 import 'package:group_coffee/screens/payment_screen.dart';
+import 'package:group_coffee/widgets/home_bottom_bar.dart';
+import 'package:provider/provider.dart';
 
 class CartScreen extends StatelessWidget {
   @override
@@ -76,7 +73,7 @@ class CartScreen extends StatelessWidget {
                             children: [
                               Text('Quantity: ${item.quantity}'),
                               Text(
-                                '\Rs${(item.quantity * item.price).toStringAsFixed(2)}',
+                                '\Rs${(item.quantity * item.price).toStringAsFixed(2)}', // Updated to reflect total price for the quantity
                                 style: TextStyle(
                                   color: Colors.green,
                                   fontWeight: FontWeight.bold,
@@ -136,7 +133,7 @@ class CartScreen extends StatelessWidget {
                 );
               },
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFFE57734),
+                backgroundColor: Color(0xFFE57734),
                 elevation: 4,
               ),
               child: Text(
@@ -153,33 +150,4 @@ class CartScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-class CartModel with ChangeNotifier {
-  List<CartItem> _cartItems = [];
-
-  List<CartItem> get cartItems => _cartItems;
-
-  double get totalPrice {
-    return _cartItems
-        .map((item) => item.quantity * item.price)
-        .fold(0, (prev, amount) => prev + amount);
-  }
-
-  void removeFromCart(int index) {
-    _cartItems.removeAt(index);
-    notifyListeners();
-  }
-}
-
-class CartItem {
-  final String name;
-  final int quantity;
-  final double price;
-
-  CartItem({
-    required this.name,
-    required this.quantity,
-    required this.price,
-  });
 }

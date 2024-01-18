@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:group_coffee/models/cart_model.dart';
+import 'package:provider/provider.dart';
 
 class SingleItemScreen extends StatefulWidget {
   final String img;
@@ -18,7 +18,6 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
   late String itemVolume;
   late String itemDescription;
 
-  // Define coffeeItems here
   List<Map<String, dynamic>> coffeeItems = [
     {'name': 'Latte', 'type': 'hot', 'price': 300.0, 'volume': '250 ml', 'description': 'A classic coffee drink with espresso and steamed milk. The latte, a quintessential hot coffee beverage, seamlessly blends robust espresso with velvety steamed milk. This classic concoction offers a harmonious balance, where the intense kick of espresso dances gracefully with the creamy embrace of meticulously steamed milk. A sip of this timeless delight promises a symphony of flavors, making the latte an enduring favorite among coffee enthusiasts seeking a refined and satisfying experience.'},
     {'name': 'Espresso', 'type': 'hot', 'price': 250.0, 'volume': '30 ml', 'description': 'Strong and concentrated coffee shot.'},
@@ -38,7 +37,6 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
   @override
   void initState() {
     super.initState();
-    // Fetch the details of the item from the coffeeItems list
     var selectedItem = coffeeItems.firstWhere((item) => item['name'] == widget.img);
     itemPrice = selectedItem['price'];
     itemVolume = selectedItem['volume'];
@@ -103,8 +101,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              padding: EdgeInsets.all(15),
-                              width: 120,
+                              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color: Colors.white.withOpacity(0.2),
@@ -112,7 +109,6 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   IconButton(
                                     icon: Icon(
@@ -128,7 +124,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                                       }
                                     },
                                   ),
-                                  SizedBox(width: 15),
+                                  SizedBox(width: 10),
                                   Text(
                                     "$quantity",
                                     style: TextStyle(
@@ -137,7 +133,7 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
-                                  SizedBox(width: 15),
+                                  SizedBox(width: 10),
                                   IconButton(
                                     icon: Icon(
                                       CupertinoIcons.plus,
@@ -203,7 +199,6 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                           children: [
                             ElevatedButton(
                               onPressed: () {
-                                // Create a CartItem and add it to the cart
                                 CartItem newItem = CartItem(
                                   name: widget.img,
                                   quantity: quantity,
@@ -212,16 +207,16 @@ class _SingleItemScreenState extends State<SingleItemScreen> {
                                 Provider.of<CartModel>(context, listen: false)
                                     .addToCart(newItem);
 
-                                // Show a snackbar to indicate that the item was added
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
-                                        'Item added to cart: ${widget.img}'),
+                                      'Item added to cart: ${widget.img}',
+                                    ),
                                   ),
                                 );
                               },
                               style: ElevatedButton.styleFrom(
-                                primary: Color.fromARGB(255, 50, 54, 56),
+                                backgroundColor: Color.fromARGB(255, 50, 54, 56),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18),
                                 ),
