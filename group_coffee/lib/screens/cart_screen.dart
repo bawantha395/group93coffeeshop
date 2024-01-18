@@ -61,34 +61,52 @@ class CartScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Card(
                         elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
                         child: ListTile(
                           title: Text(
                             item.name,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
+                              fontSize: 18,
                             ),
                           ),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Quantity: ${item.quantity}'),
+                              SizedBox(height: 8),
                               Text(
-                                '\Rs${(item.quantity * item.price).toStringAsFixed(2)}', // Updated to reflect total price for the quantity
+                                'Quantity: ${item.quantity}',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                '\Rs${(item.quantity * item.price).toStringAsFixed(2)}',
                                 style: TextStyle(
                                   color: Colors.green,
                                   fontWeight: FontWeight.bold,
+                                  fontSize: 16,
                                 ),
                               ),
                             ],
                           ),
                           trailing: IconButton(
-                            icon: Icon(Icons.remove_shopping_cart),
+                            icon: Icon(
+                              Icons.remove_shopping_cart,
+                              color: Colors.red,
+                              size: 24,
+                            ),
                             onPressed: () {
                               cartModel.removeFromCart(index);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                      'Item removed from cart: ${item.name}'),
+                                    'Item removed from cart: ${item.name}',
+                                    style: TextStyle(fontSize: 14),
+                                  ),
                                 ),
                               );
                             },
@@ -106,6 +124,9 @@ class CartScreen extends StatelessWidget {
         padding: EdgeInsets.all(15),
         decoration: BoxDecoration(
           color: Color(0xFF212325),
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(20),
+          ),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.4),
@@ -135,9 +156,13 @@ class CartScreen extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFFE57734),
                 elevation: 4,
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
               ),
               child: Text(
-                'Pay',
+                'Pay Now',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 16,

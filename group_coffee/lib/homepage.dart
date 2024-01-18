@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:group_coffee/widgets/items_widget.dart';
 import 'package:group_coffee/widgets/home_bottom_bar.dart';
+import 'package:provider/provider.dart';
+
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -50,7 +52,7 @@ class _HomepageState extends State<Homepage>
         color: Colors.black,
         child: SafeArea(
           child: Padding(
-            padding: EdgeInsets.only(top: 15),
+            padding: const EdgeInsets.only(top: 15),
             child: ListView(
               children: [
                 Padding(
