@@ -1,16 +1,18 @@
 // items_widget.dart
-import 'package:group_coffee/screens/single_item_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:group_coffee/screens/single_item_screen.dart';
 
 class ItemsWidget extends StatefulWidget {
   final Set<String> favoriteItems;
   final Function(Set<String>) updateFavorites;
   final String category; // Add category parameter
+  final String searchTerm; // Add searchTerm parameter
 
   ItemsWidget({
     required this.favoriteItems,
     required this.updateFavorites,
     required this.category,
+    required this.searchTerm,
   });
 
   @override
@@ -19,26 +21,94 @@ class ItemsWidget extends StatefulWidget {
 
 class _ItemsWidgetState extends State<ItemsWidget> {
   List<Map<String, dynamic>> coffeeItems = [
-    {'name': 'Latte', 'type': 'hot', 'price': 300.0, 'description': 'Creamy and rich'},
-    {'name': 'Espresso', 'type': 'hot', 'price': 250.0, 'description': 'Strong and bold'},
-    {'name': 'BlackCoffee', 'type': 'hot', 'price': 200.0, 'description': 'Simple and classic'},
-    {'name': 'ColdCoffee', 'type': 'cold', 'price': 350.0, 'description': 'Iced and refreshing'},
-    {'name': 'IcedLatte', 'type': 'cold', 'price': 400.0, 'description': 'Iced latte with a twist'},
-    {'name': 'Cappuccino', 'type': 'cappuccino', 'price': 320.0, 'description': 'Foamy and delicious'},
-    {'name': 'Macchiato', 'type': 'cappuccino', 'price': 280.0, 'description': 'Simple and satisfying'},
-    {'name': 'IcedCappuccino', 'type': 'cappuccino', 'price': 380.0, 'description': 'Iced and delightful'},
-    {'name': 'Americano', 'type': 'americano', 'price': 220.0, 'description': 'Classic black coffee'},
-    {'name': 'Mocha', 'type': 'americano', 'price': 420.0, 'description': 'Chocolatey and indulgent'},
-    {'name': 'IcedAmericano', 'type': 'americano', 'price': 300.0, 'description': 'Iced Americano'},
-    {'name': 'IcedCoffee', 'type': 'cold', 'price': 300.0, 'description': 'Chilled coffee perfection'},
+    {
+      'name': 'Latte',
+      'type': 'hot',
+      'price': 300.0,
+      'description': 'Creamy and rich'
+    },
+    {
+      'name': 'Espresso',
+      'type': 'hot',
+      'price': 250.0,
+      'description': 'Strong and bold'
+    },
+    {
+      'name': 'BlackCoffee',
+      'type': 'hot',
+      'price': 200.0,
+      'description': 'Simple and classic'
+    },
+    {
+      'name': 'ColdCoffee',
+      'type': 'cold',
+      'price': 350.0,
+      'description': 'Iced and refreshing'
+    },
+    {
+      'name': 'IcedLatte',
+      'type': 'cold',
+      'price': 400.0,
+      'description': 'Iced latte with a twist'
+    },
+    {
+      'name': 'Cappuccino',
+      'type': 'cappuccino',
+      'price': 320.0,
+      'description': 'Foamy and delicious'
+    },
+    {
+      'name': 'Macchiato',
+      'type': 'cappuccino',
+      'price': 280.0,
+      'description': 'Simple and satisfying'
+    },
+    {
+      'name': 'IcedCappuccino',
+      'type': 'cappuccino',
+      'price': 380.0,
+      'description': 'Iced and delightful'
+    },
+    {
+      'name': 'Americano',
+      'type': 'americano',
+      'price': 220.0,
+      'description': 'Classic black coffee'
+    },
+    {
+      'name': 'Mocha',
+      'type': 'americano',
+      'price': 420.0,
+      'description': 'Chocolatey and indulgent'
+    },
+    {
+      'name': 'IcedAmericano',
+      'type': 'americano',
+      'price': 300.0,
+      'description': 'Iced Americano'
+    },
+    {
+      'name': 'IcedCoffee',
+      'type': 'cold',
+      'price': 300.0,
+      'description': 'Chilled coffee perfection'
+    },
     // Add more items with 'type', 'price', and 'description'
   ];
 
+  List<Map<String, dynamic>> getFilteredItems() {
+    return coffeeItems
+        .where((item) =>
+            item['type'] == widget.category &&
+            item['name']
+                .toLowerCase()
+                .contains(widget.searchTerm.toLowerCase()))
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> filteredItems = coffeeItems
-        .where((item) => item['type'] == widget.category)
-        .toList();
+    List<Map<String, dynamic>> filteredItems = getFilteredItems();
 
     return GridView.count(
       physics: NeverScrollableScrollPhysics(),
@@ -130,7 +200,8 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                           color: Color(0xFFE57734),
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: buildFavoriteIconButton(filteredItems[i]['name']!),
+                        child:
+                            buildFavoriteIconButton(filteredItems[i]['name']!),
                       ),
                     ],
                   ),

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:group_coffee/login.dart';
-import 'package:group_coffee/wrapper.dart';
 
 class Signup extends StatefulWidget {
   const Signup({Key? key});
@@ -17,42 +16,85 @@ class _SignupState extends State<Signup> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController displayName = TextEditingController();
+  TextEditingController shippingAddressController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
 
   signup() async {
-    try {
-      print("Attempting to sign up...");
+  try {
+    print("Attempting to sign up...");
 
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email.text,
-        password: password.text,
-      );
-
-      // Get the current user
-      User? user = FirebaseAuth.instance.currentUser;
-
-      if (user != null) {
-        print("User created: ${user.email}");
-
-        // Store user information in Firestore
-        await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-          'email': email.text,
-          'displayName': displayName.text,
-          // Add more fields as needed
-        });
-
-        print("User data stored in Firestore");
-        Get.offAll(const Login());
-      } else {
-        print("User is null. Signup failed.");
-      }
-    } on FirebaseAuthException catch (e) {
-      print("Firebase Auth Error: ${e.code}");
-      Get.snackbar("Error", e.code);
-    } catch (e) {
-      print("Error: $e");
-      Get.snackbar("Error", e.toString());
+    // Validate input fields
+    if (!isValidEmail(email.text)) {
+      Get.snackbar("Error", "Enter a valid email address");
+      return;
     }
+
+    if (password.text.length < 6) {
+      Get.snackbar("Error", "Password must be at least 6 characters");
+      return;
+    }
+
+    if (displayName.text.isEmpty) {
+      Get.snackbar("Error", "Display Name cannot be empty");
+      return;
+    }
+
+    if (shippingAddressController.text.isEmpty) {
+      Get.snackbar("Error", "Shipping Address cannot be empty");
+      return;
+    }
+
+    if (!isValidPhoneNumber(phoneNumberController.text)) {
+      Get.snackbar("Error", "Enter a valid 10-digit phone number");
+      return;
+    }
+
+    // Create user with email and password
+    UserCredential userCredential =
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: email.text,
+      password: password.text,
+    );
+
+    // Get the current user
+    User? user = userCredential.user;
+
+    if (user != null) {
+      print("User created: ${user.email}");
+
+      // Store user information in Firestore
+      await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+        'email': email.text,
+        'displayName': displayName.text,
+        'shippingAddress': shippingAddressController.text,
+        'phoneNumber': phoneNumberController.text,
+        // Add more fields as needed
+      });
+
+      print("User data stored in Firestore");
+      Get.offAll(const Login());
+    } else {
+      print("User is null. Signup failed.");
+    }
+  } on FirebaseAuthException catch (e) {
+    print("Firebase Auth Error: ${e.code}");
+    Get.snackbar("Error", e.message ?? "An error occurred");
+  } catch (e) {
+    print("Error: $e");
+    Get.snackbar("Error", e.toString());
   }
+}
+
+bool isValidEmail(String email) {
+  // Add your email validation logic here
+  // You can use a regex or any other method to validate the email format
+  return true;
+}
+
+bool isValidPhoneNumber(String phoneNumber) {
+  // Validate if the phone number has 10 digits
+  return phoneNumber.length == 10 && int.tryParse(phoneNumber) != null;
+}
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +134,7 @@ class _SignupState extends State<Signup> {
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide.none,
                 ),
-                prefixIcon: Icon(Icons.email, color: Colors.white70),
+                prefixIcon: const Icon(Icons.email, color: Colors.white70),
               ),
             ),
             const SizedBox(height: 16),
@@ -108,7 +150,7 @@ class _SignupState extends State<Signup> {
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide.none,
                 ),
-                prefixIcon: Icon(Icons.lock, color: Colors.white70),
+                prefixIcon: const Icon(Icons.lock, color: Colors.white70),
               ),
               obscureText: true,
             ),
@@ -125,7 +167,39 @@ class _SignupState extends State<Signup> {
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide.none,
                 ),
-                prefixIcon: Icon(Icons.person, color: Colors.white70),
+                prefixIcon: const Icon(Icons.person, color: Colors.white70),
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: shippingAddressController,
+              style: const TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                labelText: 'Shipping Address',
+                labelStyle: TextStyle(color: Colors.white70),
+                filled: true,
+                fillColor: Colors.white24,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide.none,
+                ),
+                prefixIcon: const Icon(Icons.location_on, color: Colors.white70),
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: phoneNumberController,
+              style: const TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                labelText: 'Phone Number',
+                labelStyle: TextStyle(color: Colors.white70),
+                filled: true,
+                fillColor: Colors.white24,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide.none,
+                ),
+                prefixIcon: const Icon(Icons.phone, color: Colors.white70),
               ),
             ),
             const SizedBox(height: 24),

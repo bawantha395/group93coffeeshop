@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:group_coffee/widgets/items_widget.dart';
 import 'package:group_coffee/widgets/home_bottom_bar.dart';
-import 'package:provider/provider.dart';
-
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -15,6 +13,7 @@ class _HomepageState extends State<Homepage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   Set<String> favoriteItems = {}; // Initial empty set
+  TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
@@ -32,6 +31,7 @@ class _HomepageState extends State<Homepage>
   @override
   void dispose() {
     _tabController.dispose();
+    searchController.dispose();
     super.dispose();
   }
 
@@ -40,9 +40,12 @@ class _HomepageState extends State<Homepage>
       favoriteItems = newFavorites;
     });
   }
+  
 
-  signout() async {
-    // Your signout logic here
+  void filterItems(String query) {
+    setState(() {
+      searchController.text = query;
+    });
   }
 
   @override
@@ -102,6 +105,8 @@ class _HomepageState extends State<Homepage>
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: TextFormField(
+                    controller: searchController,
+                    onChanged: filterItems,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: "Find your coffee",
@@ -140,28 +145,18 @@ class _HomepageState extends State<Homepage>
                 ),
                 SizedBox(height: 10),
                 Center(
-                  child: [
-                    ItemsWidget(
-                      favoriteItems: favoriteItems,
-                      updateFavorites: updateFavorites,
-                      category: 'hot',
-                    ),
-                    ItemsWidget(
-                      favoriteItems: favoriteItems,
-                      updateFavorites: updateFavorites,
-                      category: 'cold',
-                    ),
-                    ItemsWidget(
-                      favoriteItems: favoriteItems,
-                      updateFavorites: updateFavorites,
-                      category: 'cappuccino',
-                    ),
-                    ItemsWidget(
-                      favoriteItems: favoriteItems,
-                      updateFavorites: updateFavorites,
-                      category: 'americano',
-                    ),
-                  ][_tabController.index],
+                  child: ItemsWidget(
+                    favoriteItems: favoriteItems,
+                    updateFavorites: updateFavorites,
+                    category: _tabController.index == 0
+                        ? 'hot'
+                        : _tabController.index == 1
+                            ? 'cold'
+                            : _tabController.index == 2
+                                ? 'cappuccino'
+                                : 'americano',
+                    searchTerm: searchController.text,
+                  ),
                 ),
               ],
             ),
@@ -169,10 +164,6 @@ class _HomepageState extends State<Homepage>
         ),
       ),
       bottomNavigationBar: HomeBottomBar(favoriteItems: favoriteItems),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: (() => signout()),
-      //   child: const Icon(Icons.login_rounded),
-      // ),
     );
   }
 }
