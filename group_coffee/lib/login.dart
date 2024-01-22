@@ -77,7 +77,7 @@ class _LoginState extends State<Login> {
                         borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide.none,
                       ),
-                      prefixIcon: Icon(Icons.email, color: Colors.white70),
+                      prefixIcon: const Icon(Icons.email, color: Colors.white70),
                     ),
                   ),
                   const SizedBox(height: 16),

@@ -1,8 +1,8 @@
-// favorite_items_model.dart
+
 import 'package:flutter/material.dart';
 
 class FavoriteItemsModel extends ChangeNotifier {
-  Set<String> _favoriteItems = {};
+  final Set<String> _favoriteItems = {};
 
   Set<String> get favoriteItems => _favoriteItems;
 

@@ -17,6 +17,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 33, 34, 35),
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 33, 34, 35),
         title: Text('Secure Payment', style: TextStyle(color: Colors.white)),
@@ -127,7 +128,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       ? CircularProgressIndicator(
                           valueColor:
                               AlwaysStoppedAnimation<Color>(Colors.white))
-                      : Text('Make Payment', style: TextStyle(fontSize: 18)),
+                      : Text('Pay Now', style: TextStyle(fontSize: 18)),
                 ),
                 SizedBox(height: 10),
                 ElevatedButton(
@@ -168,9 +169,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
       if (paymentSuccessful) {
         _showSuccessDialog();
-      } else {
-        _showErrorDialog();
-      }
+      } 
     }
   }
 
@@ -203,7 +202,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           TextButton(
             onPressed: () {
               Navigator.pop(context);
-              // Add any additional logic after a failed payment
+              
             },
             child: Text('OK'),
           ),
@@ -242,6 +241,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   void _navigateToHome() {
-    Navigator.popUntil(context, ModalRoute.withName('/')); // Pop until the home route
+    // Navigator.popUntil(context, ModalRoute.withName('/home')); // Pop until the home route
+     Navigator.pushReplacementNamed(context, '/home');
   }
 }

@@ -2,14 +2,20 @@ import 'package:flutter/foundation.dart';
 
 class CartItem {
   final String name;
-  final int quantity;
+  int quantity;
   final double price;
+  final String imageUrl; // Add this line
 
-  CartItem({required this.name, required this.quantity, required this.price});
+  CartItem({
+    required this.name,
+    required this.quantity,
+    required this.price,
+    required this.imageUrl,
+  });
 }
 
 class CartModel extends ChangeNotifier {
-  List<CartItem> _cartItems = [];
+  final List<CartItem> _cartItems = [];
 
   List<CartItem> get cartItems => _cartItems;
 
@@ -21,6 +27,18 @@ class CartModel extends ChangeNotifier {
   void removeFromCart(int index) {
     _cartItems.removeAt(index);
     notifyListeners();
+  }
+
+  void incrementQuantity(int index) {
+    _cartItems[index].quantity++;
+    notifyListeners();
+  }
+
+  void decrementQuantity(int index) {
+    if (_cartItems[index].quantity > 1) {
+      _cartItems[index].quantity--;
+      notifyListeners();
+    }
   }
 
   double get totalPrice {

@@ -71,14 +71,14 @@ class _HomepageState extends State<Homepage>
                           size: 35,
                         ),
                       ),
-                      InkWell(
-                        onTap: () {},
-                        child: Icon(
-                          Icons.notifications,
-                          color: Colors.white.withOpacity(0.5),
-                          size: 35,
-                        ),
-                      ),
+                      // InkWell(
+                      //   onTap: () {},
+                      //   child: Icon(
+                      //     Icons.notifications,
+                      //     color: Colors.white.withOpacity(0.5),
+                      //     size: 35,
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -134,7 +134,7 @@ class _HomepageState extends State<Homepage>
                     insets: EdgeInsets.symmetric(horizontal: 16),
                   ),
                   labelStyle:
-                      TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                      const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                   labelPadding: const EdgeInsets.symmetric(horizontal: 20),
                   tabs: const [
                     Tab(text: "Hot Coffee"),

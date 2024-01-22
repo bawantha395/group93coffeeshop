@@ -8,7 +8,7 @@ import 'package:group_coffee/screens/profile_screen.dart';
 class HomeBottomBar extends StatelessWidget {
   final Set<String>? favoriteItems;
 
-  HomeBottomBar({this.favoriteItems});
+  HomeBottomBar({this.favoriteItems}) ;
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'login.dart'; // Import the Login page file
+import 'login.dart'; 
 
 class Forgot extends StatefulWidget {
   const Forgot({super.key});
@@ -84,7 +84,7 @@ class _ForgotState extends State<Forgot> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Login()),
+                  MaterialPageRoute(builder: (context) => const Login()),
                 );
               },
               child: const Text(

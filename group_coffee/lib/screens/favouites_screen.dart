@@ -26,7 +26,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
     {'name': 'Mocha', 'type': 'americano', 'price': 420.0, 'description': 'Chocolatey and indulgent'},
     {'name': 'IcedAmericano', 'type': 'americano', 'price': 300.0, 'description': 'Iced Americano'},
     {'name': 'IcedCoffee', 'type': 'cold', 'price': 300.0, 'description': 'Chilled coffee perfection'},
-    // Add more items with 'type', 'price', and 'description'
+    
   ];
 
   @override
@@ -34,9 +34,9 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
     List<String> favoriteItemsList = widget.favoriteItems.toList();
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 33, 34, 35),
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Color.fromARGB(255, 33, 34, 35),
         elevation: 0,
         leading: IconButton(
           icon: Icon(
@@ -44,7 +44,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
             color: Colors.white,
           ),
           onPressed: () {
-            // Add your sort functionality here
+            
           },
         ),
         title: Text(
@@ -55,17 +55,17 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
             fontSize: 20,
           ),
         ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.notifications,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              // Add your notification functionality here
-            },
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: Icon(
+        //       Icons.notifications,
+        //       color: Colors.white,
+        //     ),
+        //     onPressed: () {
+              
+        //     },
+        //   ),
+        // ],
       ),
       body: favoriteItemsList.isEmpty
           ? Center(
@@ -80,7 +80,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
           : GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: (150 / 195),
+                childAspectRatio: (150 / 200),
               ),
               itemCount: favoriteItemsList.length,
               itemBuilder: (context, index) {
@@ -102,13 +102,14 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                     ],
                   ),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Container(
                         margin: EdgeInsets.all(10),
                         child: Image.asset(
                           "images/$item.png",
                           width: 120,
-                          height: 120,
+                          height: 70,
                           fit: BoxFit.contain,
                         ),
                       ),

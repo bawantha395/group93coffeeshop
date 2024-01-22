@@ -69,35 +69,7 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                // SizedBox(height: 20),
-                // RichText(
-                //   text: TextSpan(
-                //     text: "Don’t have an account? ",
-                //     style: TextStyle(
-                //       color: Colors.white.withOpacity(0.8),
-                //       fontSize: 16,
-                //     ),
-                //     children: [
-                //       TextSpan(
-                //         text: "Sign Up",
-                //         style: TextStyle(
-                //           color: Colors.white,
-                //           fontSize: 16,
-                //           fontWeight: FontWeight.bold,
-                //         ),
-                //         recognizer: TapGestureRecognizer()
-                //           ..onTap = () {
-                //             Navigator.push(
-                //               context,
-                //               MaterialPageRoute(
-                //                 builder: (context) => const Login(),
-                //               ),
-                //             );
-                //           },
-                //       ),
-                //     ],
-                //   ),
-                // ),
+               
               ],
             ),
           ],
